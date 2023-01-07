@@ -34,7 +34,7 @@ const Register = () => {
             <form className='form' onSubmit={onSubmit}>
                 <Logo />
                 <h3>{values.isMember ? 'Login' : 'Register'}</h3>
-                <Alert/>
+                <Alert />
                 {!values.isMember && (
                     <FormRow
                         type = 'text'
