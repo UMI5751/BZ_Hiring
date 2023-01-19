@@ -2,17 +2,20 @@ import { useState, useEffect} from "react";
 import {FormRow, Logo, Alert} from '../components'
 import Wrapper from '../assets/wrappers/RegisterPage'
 import {useAppContext} from "../context/appContext";
+import {useNavigate} from "react-router-dom";
 
 const initialState = {
     name: '',
     email: '',
     password: '',
-    isMember: true,
+    isMember: false,
 }
 const Register = () => {
+    const navigate = useNavigate()
+
     const [values, setValues] = useState(initialState);
 
-    const {isLoading, showAlert, displayAlert, registerUser} = useAppContext()
+    const {user, isLoading, showAlert, displayAlert, registerUser} = useAppContext()
 
     const toggleMember = (e) => {
         setValues({...values, isMember:!values.isMember})
@@ -32,10 +35,18 @@ const Register = () => {
         const currentUser = {name, email, password}
         if (isMember) {
             console.log('already a member')
+        } else {
+            registerUser(currentUser)
         }
     }
 
-
+    useEffect(() => {
+        if (user) {
+            setTimeout(() => {
+                navigate('/')
+            }, 3000)
+        }
+    }, [user, navigate])
 
     return (
         <Wrapper className='full-page'>
