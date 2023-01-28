@@ -1,17 +1,18 @@
 import styled from 'styled-components'
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
-import {Dashboard, Register, Landing, Error} from './pages'
-
+import {Register, Landing, Error} from './pages'
+import {Alljobs, Profile, SharedLayout, Stats, Addjob} from './pages/dashboard'
 function App() {
   return (
       <BrowserRouter>
-          <nav>
-              <Link to='/'> Dashboard </Link>
-              <Link to='/register'> Register </Link>
-              <Link to='/landing'> Landing </Link>
-          </nav>
           <Routes>
-              <Route path='/' element={<Dashboard />} />
+              <Route path='/' element={<SharedLayout />}>
+                  <Route index element={<Stats />} />
+                  <Route path='all-jobs' element={<Alljobs />} />
+                  <Route path='add-job' element={<Addjob />} />
+                  <Route path='profile' element={<Profile />} />
+              </Route>
+
               <Route path='/register' element={<Register />} />
               <Route path='/landing' element={<Landing />} />
               <Route path='/*' element={<Error />} />
